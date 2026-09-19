@@ -38,7 +38,7 @@ export default function FeaturedProperties() {
         <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
           <div>
             <p className="mb-6 text-[10px] tracking-[0.35em] text-black/40">
-              AKANI ESTATES / COLLECTION
+              AMEN ESTATES / COLLECTION
             </p>
 
             <h2 className="max-w-3xl text-5xl font-light leading-[0.95] tracking-[-0.045em] md:text-7xl lg:text-[6.5rem]">
@@ -88,13 +88,12 @@ function PropertyItem({
     offset: ["start end", "end start"],
   });
 
-  // Image moves vertically as the user scrolls past it
+ 
   const imageY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
-  // Information moves slightly slower than the image
+
   const contentY = useTransform(scrollYProgress, [0, 1], ["25px", "-25px"]);
 
-  // Image gently grows while entering and leaving viewport
   const imageScale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],

@@ -5,10 +5,8 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 function HeroImage() {
-  const texture = useLoader(
-    THREE.TextureLoader,
-    "/images/heroHouse.webp"
-  );
+  const texture = useLoader(THREE.TextureLoader, "/images/heroHouse.webp");
+  useLoader.preload(THREE.TextureLoader, "/images/heroHouse.webp");
 
   const meshRef = useRef<THREE.Mesh>(null);
   const elapsed = useRef(0);
@@ -39,40 +37,28 @@ function HeroImage() {
     const mouseX = mouse.x * 0.35;
     const mouseY = mouse.y * 0.2;
 
-    meshRef.current.position.x =
-      driftX + mouseX;
+    meshRef.current.position.x = driftX + mouseX;
 
-    meshRef.current.position.y =
-      driftY + mouseY;
+    meshRef.current.position.y = driftY + mouseY;
 
     // Gentle cinematic rotation
     meshRef.current.rotation.y =
-      Math.sin(time * 0.18) * 0.035 +
-      mouse.x * 0.025;
+      Math.sin(time * 0.18) * 0.035 + mouse.x * 0.025;
 
     meshRef.current.rotation.x =
-      Math.cos(time * 0.15) * 0.018 -
-      mouse.y * 0.015;
+      Math.cos(time * 0.15) * 0.018 - mouse.y * 0.015;
 
     // Noticeable breathing / push effect
-    const zoom =
-      1.15 + Math.sin(time * 0.16) * 0.07;
+    const zoom = 1.15 + Math.sin(time * 0.16) * 0.07;
 
-    meshRef.current.scale.set(
-      width * zoom,
-      height * zoom,
-      1
-    );
+    meshRef.current.scale.set(width * zoom, height * zoom, 1);
   });
 
   return (
     <mesh ref={meshRef}>
       <planeGeometry args={[1, 1]} />
 
-      <meshBasicMaterial
-        map={texture}
-        toneMapped={false}
-      />
+      <meshBasicMaterial map={texture} toneMapped={false} />
     </mesh>
   );
 }
@@ -86,26 +72,19 @@ function CameraMotion() {
 
     const time = elapsed.current;
 
-    const cinematicX =
-      Math.sin(time * 0.14) * 0.65;
+    const cinematicX = Math.sin(time * 0.14) * 0.65;
 
-    const cinematicY =
-      Math.cos(time * 0.11) * 0.25;
+    const cinematicY = Math.cos(time * 0.11) * 0.25;
 
-    const cinematicZoom =
-      5.4 + Math.sin(time * 0.13) * 0.7;
+    const cinematicZoom = 5.4 + Math.sin(time * 0.13) * 0.7;
 
     camera.position.x +=
-      (cinematicX + mouse.x * 0.45 - camera.position.x) *
-      0.025;
+      (cinematicX + mouse.x * 0.45 - camera.position.x) * 0.025;
 
     camera.position.y +=
-      (cinematicY + mouse.y * 0.25 - camera.position.y) *
-      0.025;
+      (cinematicY + mouse.y * 0.25 - camera.position.y) * 0.025;
 
-    camera.position.z +=
-      (cinematicZoom - camera.position.z) *
-      0.025;
+    camera.position.z += (cinematicZoom - camera.position.z) * 0.025;
 
     camera.lookAt(0, 0, 0);
   });
@@ -119,10 +98,7 @@ function Scene() {
       <HeroImage />
       <CameraMotion />
 
-      <fog
-        attach="fog"
-        args={["#090909", 4, 14]}
-      />
+      <fog attach="fog" args={["#090909", 4, 14]} />
     </>
   );
 }

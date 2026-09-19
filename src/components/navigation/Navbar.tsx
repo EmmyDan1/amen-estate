@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -67,15 +66,15 @@ export default function Navbar() {
             PROPERTIES
           </NavLink>
 
-          <NavLink href="/#about" solid={solid}>
+          <NavLink href="/about" solid={solid}>
             ABOUT
           </NavLink>
 
-          <NavLink href="/#journal" solid={solid}>
+          <NavLink href="/journal" solid={solid}>
             JOURNAL
           </NavLink>
 
-          <NavLink href="/#contact" solid={solid}>
+          <NavLink href="/contact" solid={solid}>
             CONTACT
           </NavLink>
 

@@ -18,7 +18,7 @@ export default function AboutSection() {
             transition={{ duration: 0.9 }}
           >
             <p className="mb-7 text-[10px] tracking-[0.35em] text-white/35">
-              NOIR ESTATES / PHILOSOPHY
+              AMEN ESTATES / PHILOSOPHY
             </p>
 
             <h2 className="max-w-5xl text-5xl font-light leading-[0.92] tracking-[-0.05em] md:text-7xl lg:text-[6.8rem]">
@@ -42,18 +42,18 @@ export default function AboutSection() {
             className="max-w-md lg:mb-2 lg:justify-self-end"
           >
             <p className="text-sm leading-7 text-white/50">
-              Noir Estates represents a quieter approach to luxury real
+              Amen represents a quieter approach to luxury real
               estate. We look beyond square footage and price to discover
               properties with architecture, character and a sense of place.
             </p>
 
-            <a
-              href="#contact"
-              className="mt-8 inline-flex items-center gap-4 border-b border-white/25 pb-3 text-[10px] tracking-[0.2em] text-white transition-colors hover:border-white"
-            >
-              DISCOVER OUR APPROACH
-              <span className="text-sm">↗</span>
-            </a>
+<a
+  href="/about"
+  className="mt-8 inline-flex items-center gap-4 border-b border-white/25 pb-3 text-[10px] tracking-[0.2em] text-white transition-colors hover:border-white"
+>
+  DISCOVER OUR APPROACH
+  <span className="text-sm">↗</span>
+</a>
           </motion.div>
         </div>
       </div>

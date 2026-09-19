@@ -2,34 +2,30 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-
-const property = {
-  name: "The Hawthorne",
-  location: "Austin, Texas",
-  type: "Private Residence",
-  price: "$2.85M",
-  beds: 4,
-  baths: 4,
-  area: "4,280 sq ft",
-  description:
-    "The Hawthorne is a contemporary residence shaped around light, space and a quiet connection to its surroundings. Expansive glazing, natural materials and considered outdoor spaces create a home designed for modern living.",
-  images: [
-    "/images/property1.webp",
-    "/images/properties/living1.webp",
-    "/images/properties/kitchen1.webp",
-    "/images/properties/bedroom1.webp",
-    "/images/properties/bathroom1.webp",
-    "/images/properties/outdoor1.webp",
-  ],
-};
+import { notFound, useParams } from "next/navigation";
+import { properties } from "@/src/data/properties";
 
 export default function PropertyPage() {
+  const params = useParams();
+  const id = params.id as string;
+
+  const property = properties.find((item) => item.id === id);
+
+  if (!property) {
+    notFound();
+  }
+
+  const gallery = Array.from({ length: 5 }, (_, index) => ({
+    src: property.image,
+    id: `${property.id}-${index}`,
+  }));
+
   return (
     <main className="bg-[#f2efe9] text-[#111111]">
       {/* Hero */}
       <section className="relative h-[88vh] min-h-[650px] overflow-hidden bg-black">
         <motion.img
-          src={property.images[0]}
+          src={property.image}
           alt={property.name}
           initial={{ scale: 1.08 }}
           animate={{ scale: 1 }}
@@ -65,7 +61,7 @@ export default function PropertyPage() {
         </Link>
       </section>
 
-      {/* Property overview */}
+      {/* Overview */}
       <section className="mx-auto max-w-[1600px] px-6 py-24 md:px-12 md:py-32 lg:px-16">
         <div className="grid gap-16 lg:grid-cols-[1fr_0.8fr]">
           <div>
@@ -97,14 +93,14 @@ export default function PropertyPage() {
       {/* Gallery */}
       <section className="mx-auto max-w-[1600px] px-6 pb-32 md:px-12 lg:px-16">
         <div className="grid gap-5 md:grid-cols-2">
-          {property.images.slice(1).map((image, index) => (
+          {gallery.map((image, index) => (
             <motion.div
-              key={image}
-              initial={{ opacity: 0, y: 50 }}
+              key={image.id}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{
-                duration: 0.8,
+                duration: 0.7,
                 delay: index * 0.05,
               }}
               className={`overflow-hidden ${
@@ -112,12 +108,10 @@ export default function PropertyPage() {
               }`}
             >
               <motion.img
-                src={image}
-                alt={`${property.name} ${index + 2}`}
+                src={image.src}
+                alt={`${property.name} view ${index + 1}`}
                 className={`w-full object-cover ${
-                  index === 0
-                    ? "aspect-[2/1]"
-                    : "aspect-[4/3]"
+                  index === 0 ? "aspect-[2/1]" : "aspect-[4/3]"
                 }`}
                 whileHover={{ scale: 1.025 }}
                 transition={{ duration: 0.9 }}
@@ -145,17 +139,17 @@ export default function PropertyPage() {
 
             <div>
               <p className="max-w-sm text-sm leading-7 text-white/45">
-                Request a private viewing or speak with a Noir Estates
-                representative about The Hawthorne.
+                Request a private viewing or speak with an AMEN representative
+                about {property.name}.
               </p>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="mt-8 inline-flex items-center gap-5 border border-white/20 px-7 py-4 text-[10px] tracking-[0.2em] transition hover:bg-white hover:text-black"
               >
                 REQUEST A VIEWING
                 <span>↗</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -164,13 +158,7 @@ export default function PropertyPage() {
   );
 }
 
-function Detail({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-[9px] uppercase tracking-[0.18em] text-black/35">
